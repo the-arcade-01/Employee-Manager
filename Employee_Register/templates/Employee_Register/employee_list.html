@@ -1,0 +1,40 @@
+{% extends 'Employee_Register/base.html' %}
+
+{% block title %}
+    Employee-List
+{% endblock %}
+
+{% block content %}
+<div class="container h-100 d-flex justify-content-center">
+    <table class='table table-borderless'>
+        <thead class='border bottom font-weight-bold'>
+            <tr>
+                <td>Full Name</td>
+                <td>Mobile</td>
+                <td>Position</td>
+                <td>
+                    <form>
+                        <button formaction="{% url 'employee_form' %}" class="btn btn-outline-info my-2 my-sm-0">Add Employee</button>
+                    </form>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employee_list %}
+                <tr>
+                    <td>{{employee.fullname}}</td>
+                    <td>{{employee.mobile}}</td>
+                    <td>{{employee.position}}</td>
+                    <td>
+                        <form>
+                            {% csrf_token %}
+                            <button formaction="{% url 'employee_update' employee.id %}" class="btn btn-outline-success my-2 my-sm-0">Update</button>
+                            <button type='submit' method = 'post' formaction="{% url 'employee_delete' employee.id %}" class="btn btn-outline-danger my-2 my-sm-0">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
